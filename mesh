@@ -1,0 +1,20 @@
+###Build the meshes via for loop:
+
+for (i in 1:length(flist)) {
+  setwd(kfile_vertex)
+  vertex_kfile(ft_suspects_sp, i ,buff)
+  mesh_kfile(kfile_in = flist[i], kfile_vertex, scratchdrivemesh,lsdynadir,mesh_size,z_length, zelem)
+  segment_setter(flist[i], scratchdrivemesh, scratchdrivemesh,lsdynadir)
+  setwd(scratchdrivemesh)
+  mat_paster(flist[i], mat, input_dir = scratchdrivemesh, output_dir = scratchdrivemesh) #####
+  toplevel = nodeser(kfilemesh = flist[i], elev = ram_ht) ##intermediate step here where only the 'right' nodes are supplied for isolated ramget
+  ramcut = nick_concave(toplevel, iterations = 1, flist[i])
+  setwd(scratchdrivemesh) ##start here
+  elements_deleted <- delete_elements_improved(kfilemesh = flist[i], new_nodes = ramcut, ht_cutoff = ram_ht-10) #
+  orphans_departed <- goodbye_orphans(new_nodes = ramcut, elements_deleted)
+  nodes_width_fixed <- fix_width_nodes(nidwidth, nidcols, orphans_departed)
+  elements_width_fixed <- fix_width_elements(eidwidth, eidcols,elements_deleted)
+  final_kfile <- nid_eid_replace(kfilemesh = flist[i], nidtable = "temp_fwf_nodes.txt", eidtable = "temp_fwf_elements.txt", inst_names = inst_names_meshes[i], buff = buff, output_dir = kfile_complete_100)
+  paste_waterline(vertex_directory = kfile_vertex, ci2d3_df = ft_suspects_sp, t_sail = 10, t_keel = 90, vertex_kfile = flist[i], kfile_input_directory = kfile_complete_100, kfile_output_directory = kfile_complete_100, kfile_mesh = flist[i])
+  
+}
