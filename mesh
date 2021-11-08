@@ -18,3 +18,16 @@ for (i in 1:length(flist)) {
   paste_waterline(vertex_directory = kfile_vertex, ci2d3_df = ft_suspects_sp, t_sail = 10, t_keel = 90, vertex_kfile = flist[i], kfile_input_directory = kfile_complete_100, kfile_output_directory = kfile_complete_100, kfile_mesh = flist[i])
   
 }
+
+#add damping coefficient and erosion limit:
+
+for (i in 1:length(flist[i]))
+  {
+  
+  setwd(kfile_vertex_iso) 
+  damp_coef <- predict_damp(inst = inst_names_meshes[i], buff_length = 60, thickness = 100, ft_suspect_df = ft_suspects_sp)
+  
+  setwd(kfiles_complete_isolated_100)
+  erode_damp(kfile_mesh = flist[i], damp_coef = damp_coef)
+  
+}
