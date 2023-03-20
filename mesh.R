@@ -48,7 +48,7 @@ kfiles_complete_isolated <- "completed-mesh-dir"
 goodelements <- ""                                               # dir for 'corrected' elements (ram that results from deletions)
 topviewdir_af <- "after-fracture-plots-dir"             
 topviewdir_bf <- "before-fracture-plots-dir"            
-buff = 20                                                        # ram/bench buffer value (m)
+buff <- 20                                                        # ram/bench buffer value (m)
 mesh_size <- 20.0                                                # mesh resolution ~5x5 m
 z_length <- 80.0                                                 # thickness of ice island (m)
 zelem <- 8                                                       # no.of elements in the z direction = 5 m
