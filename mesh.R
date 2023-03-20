@@ -153,8 +153,8 @@ for (i in 1:length(flist)) {
   segment_setter(flist[i], kfilemesh, kfilemesh,lsdynadir)
   setwd(kfilemesh)
   mat_paster(flist[i], mat, input_dir = kfilemesh, output_dir = kfilemesh)
-  toplevel = nodeser(kfilemesh = flist[i], elev = ram_ht) ##intermediate step here where only the 'right' nodes are supplied for isolated ramget
-  ramcut = nick_concave(toplevel, iterations = 1, flist[i])
+  toplevel <- nodeser(kfilemesh = flist[i], elev = ram_ht) ##intermediate step here where only the 'right' nodes are supplied for isolated ramget
+  ramcut <- nick_concave(toplevel, iterations = 1, flist[i])
   setwd(kfilemesh) ##start here
   elements_deleted <- delete_elements_improved(kfilemesh = flist[i], new_nodes = ramcut, ht_cutoff = ram_ht-10) #
   orphans_departed <- goodbye_orphans(new_nodes = ramcut, elements_deleted)
