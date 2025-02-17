@@ -1,0 +1,18 @@
+erode_damp <- function(kfile_mesh, damp_coef) {
+  ### pastes the damp coeff. back into the kfile in the appropriate spot
+  ### erosion_lines - character string of erosion card for kfile
+  ### damp_coef - damping coefficient
+  ### kfile_mesh - the mesh k file
+  
+  
+  kmesh <- readLines(kfile_mesh)
+  #line1 = grep(kmesh, pattern="*DEFINE_FUNCTION",fixed = T)
+  #kmesh = c(kmesh[1:line1-1], erosion_lines, kmesh[line1:length(kmesh)])
+  
+  damped <- gsub("uuu", damp_coef, damp)
+  line1 = grep(kmesh, pattern="*ELEMENT_SOLID",fixed = T)
+  kmesh = c(kmesh[1:line1-1], damped, kmesh[line1:length(kmesh)])
+  
+  writeLines(kmesh, paste0(kfile_mesh))
+  
+}
